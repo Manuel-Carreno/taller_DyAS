@@ -20,11 +20,14 @@ package edu.unisabana.dyas.samples.services.client;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Date;
 import java.sql.SQLException;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
+import edu.unisabana.dyas.sampleprj.dao.mybatis.mappers.ClienteMapper;
+import edu.unisabana.dyas.samples.entities.Cliente;
 
 /**
  *
@@ -61,15 +64,17 @@ public class MyBatisExample {
         SqlSessionFactory sessionfact = getSqlSessionFactory();
 
         SqlSession sqlss = sessionfact.openSession();
-
-        
         //Crear el mapper y usarlo: 
-        //ClienteMapper cm=sqlss.getMapper(ClienteMapper.class)
-        //cm...
+        ClienteMapper cm=sqlss.getMapper(ClienteMapper.class);
+        //Cliente c = cm.consultarCliente(555555555);
+        //System.out.println(c);
         
-        
-        
+        //probar el agregarItemRentadoACliente
+        cm.agregarItemRentadoACliente(555555555, 1,  new Date(), new Date());
         sqlss.commit();
+        System.out.println(cm.consultarCliente(555555555));
+
+       
         
         
         sqlss.close();

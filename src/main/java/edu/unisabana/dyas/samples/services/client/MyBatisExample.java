@@ -27,7 +27,10 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import edu.unisabana.dyas.sampleprj.dao.mybatis.mappers.ClienteMapper;
+import edu.unisabana.dyas.sampleprj.dao.mybatis.mappers.ItemMapper;
 import edu.unisabana.dyas.samples.entities.Cliente;
+import edu.unisabana.dyas.samples.entities.Item;
+import edu.unisabana.dyas.samples.entities.TipoItem;
 
 /**
  *
@@ -62,20 +65,33 @@ public class MyBatisExample {
      */
     public static void main(String args[]) throws SQLException {
         SqlSessionFactory sessionfact = getSqlSessionFactory();
-
         SqlSession sqlss = sessionfact.openSession();
-        //Crear el mapper y usarlo: 
-        ClienteMapper cm=sqlss.getMapper(ClienteMapper.class);
-        //Cliente c = cm.consultarCliente(555555555);
-        //System.out.println(c);
-        
-        //probar el agregarItemRentadoACliente
-        cm.agregarItemRentadoACliente(555555555, 1,  new Date(), new Date());
-        sqlss.commit();
-        System.out.println(cm.consultarCliente(555555555));
 
-       
+        //crear un nuevo item
+        ItemMapper im = sqlss.getMapper(ItemMapper.class);
+        Item newItem = new Item();
+        newItem.setNombre("Silla de Madera");
+        newItem.setDescrpcion("Producto nuevo para la venta");
+        newItem.setFechaLanzamiento(new java.util.Date());
+        newItem.setTarifaxDia(10000);
+        newItem.setFormatoRenta("Diario");
+        newItem.setGenero("Mueble");
+        newItem.setId(4);
+
+        //crear el tipo items
+        TipoItem tipoItems = new TipoItem();
+        tipoItems.setID(2);
+        tipoItems.setDescripcion("Mueble");
+        newItem.setTipo(tipoItems);
+
+        im.insertarItem(newItem);
+        System.out.println("Se inserto el item");
+
+        sqlss.commit();
         
+        Item itemInsert = im.consultarItem(newItem.getId());
+        System.out.println("Item guardado es:");
+        System.out.println(itemInsert);
         
         sqlss.close();
 

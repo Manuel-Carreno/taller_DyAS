@@ -24,13 +24,12 @@
             i.genero             as i_genero,
             ti.id                as ti_id,
             ti.descripcion       as ti_descripcion
-        FROM VI_CLIENTES as c
-        left join VI_ITEMRENTADO as ir on c.documento=ir.CLIENTES_documento
-        left join VI_ITEMS as i on ir.ITEMS_id=i.id
-        left join VI_TIPOITEM as ti on i.TIPOITEM_id=ti.id
+            FROM VI_CLIENTES as c
+            left join VI_ITEMRENTADO as ir on c.documento=ir.CLIENTES_documento
+            left join VI_ITEMS as i on ir.ITEMS_id=i.id
+            left join VI_TIPOITEM as ti on i.TIPOITEM_id=ti.id
 
-        WHERE c.documento = #{idcli} <!--aca probamos la consulta del documento del punto 6-->
-
+            WHERE c.documento = #{idcli} <!--aca probamos la consulta del documento del punto 6-->
 
     </select>
 
@@ -45,13 +44,13 @@
     <result property="email" column="email"/>
     <result property="vetado" column="vetado"/>
 
-    <collection property="rentados" ofType="ItemRentado" resultMap="ItemRentadoResult" columnPrefix="ir_"/>
+    <collection property="rentados" ofType="ItemRentado" resultMap="ItemRentadoResult"/>
 
 </resultMap>
 
 <!--mapeo para la tabla ITEMRENTADO-->
 <resultMap type = "ItemRentado" id="ItemRentadoResult">
-    <id property = "id" column = "id"/>
+    <id property = "id" column = "ir_id"/>
     <result property = "fechainiciorenta" column="fechainiciorenta" />
     <result property = "fechafinrenta" column = "fechafinrenta" />
 
@@ -60,9 +59,9 @@
 
 <!--mapeo para la tabla ITEMS-->
 <resultMap type = "Item" id = "ItemResult">
-    <id property = "id" column = "id"/>
-    <result property = "nombre" column="ombre"/>
-    <result property = "descripcion" column="descripcion"/>
+    <id property = "id" column = "i_id"/>
+    <result property = "nombre" column="i_nombre"/>
+    <result property = "descripcion" column="i_descripcion"/>
     <result property = "fechalanzamiento" column = "fechalanzamiento"/>
     <result property = "tarifaxdia" column = "tarifaxdia"/>
     <result property = "formatorenta" column= "formatorenta"/>
@@ -73,14 +72,10 @@
 
 <!--mapeo para la tabla TIPOITEM-->
 <resultMap type = "TipoItem" id="TipoItemResult">
-    <id property = "ID" column = "id"/>
-    <result property = "descripcion" column="descripcion"/>
+    <id property = "id" column = "ti_id"/>
+    <result property = "descripcion" column="ti_descripcion"/>
 </resultMap>
 
-<insert id="agregarItemRentadoACliente" parameterType="map">
-    INSERT INTO VI_ITEMRENTADO (fechainiciorenta, fechafinrenta, CLIENTES_documento, ITEMS_id)
-    VALUES (#{fechainicio}, #{fechafin}, #{idcli}, #{iditem})
-</insert>
 
 
 </mapper>

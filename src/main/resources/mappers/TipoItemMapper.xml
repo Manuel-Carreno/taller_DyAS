@@ -6,6 +6,35 @@
 <mapper namespace="edu.unisabana.dyas.sampleprj.dao.mybatis.mappers.TipoItemMapper">
 
     
+    <select id="getTiposItems" resultMap="TipoItemResult">
+        select
+            id as ti_id,
+            descripcion as ti_descripcion
+        from VI_TIPOITEM
+    </select>
+
+
+    <select id="getTipoItem" parameterType="int" resultMap="TipoItemResult">
+        select
+            id as ti_id,
+            descripcion as ti_descripcion
+        from VI_TIPOITEM
+        where id = #{id}
+    </select>
+
+
+    <insert id="addTipoItem" parameterType="String">
+        insert into VI_TIPOITEM (descripcion)
+        values (#{descripcion})
+    </insert>
+
+
+    <resultMap id="TipoItemResult" type="TipoItem">
+        <id property="id" column="ti_id"/>
+        <result property="descripcion" column="ti_descripcion"/>
+    </resultMap>
+
+    
 
                 
 </mapper>

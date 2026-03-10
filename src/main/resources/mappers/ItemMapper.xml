@@ -4,8 +4,64 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
 <mapper namespace="edu.unisabana.dyas.sampleprj.dao.mybatis.mappers.ItemMapper">
+ 
+    <resultMap id="TipoItemResult" type="TipoItem">
+        <id property="id" column="ti_id"/>
+        <result property="descripcion" column="ti_descripcion"/>
+    </resultMap>
+
+    
+    <resultMap id="ItemResult" type="Item">
+        <id property="id" column="i_id"/>
+        <result property="nombre" column="i_nombre"/>
+        <result property="descripcion" column="i_descripcion"/>
+        <result property="fechaLanzamiento" column="fechalanzamiento"/>
+        <result property="tarifaxDia" column="tarifaxdia"/>
+        <result property="formatoRenta" column="formatorenta"/>
+        <result property="genero" column="genero"/>
+        <association property="tipo" javaType="TipoItem" resultMap="TipoItemResult"/>
+    </resultMap>
+
+    
+    <insert id="insertarItem" parameterType="Item">
+    insert into VI_ITEMS (id, nombre, descripcion, fechalanzamiento, tarifaxdia, formatorenta, genero, TIPOITEM_id)
+    values (#{id}, #{nombre}, #{descripcion}, #{fechaLanzamiento}, #{tarifaxDia}, #{formatoRenta}, #{genero}, #{tipo.ID})
+    </insert>
+
+    
+    <select id="consultarItem" parameterType="int" resultMap="ItemResult">
+        select
+            i.id as i_id,
+            i.nombre as i_nombre,
+            i.descripcion as i_descripcion,
+            i.fechalanzamiento,
+            i.tarifaxdia,
+            i.formatorenta,
+            i.genero,
+            ti.id as ti_id,
+            ti.descripcion as ti_descripcion
+        from VI_ITEMS as i
+                 left join VI_TIPOITEM as ti on i.TIPOITEM_id = ti.id
+        where i.id = #{it}
+    </select>
+
+    
+    <select id="consultarItems" resultMap="ItemResult">
+        select
+            i.id as i_id,
+            i.nombre as i_nombre,
+            i.descripcion as i_descripcion,
+            i.fechalanzamiento,
+            i.tarifaxdia,
+            i.formatorenta,
+            i.genero,
+            ti.id as ti_id,
+            ti.descripcion as ti_descripcion
+        from VI_ITEMS as i
+                 left join VI_TIPOITEM as ti on i.TIPOITEM_id = ti.id
+    </select>
 
 
     
-    
+
 </mapper>

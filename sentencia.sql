@@ -24,3 +24,5 @@
     left join VI_TIPOITEM as ti on i.TIPOITEM_id=ti.id 
 
     WHERE c.documento = 123456789
+
+    

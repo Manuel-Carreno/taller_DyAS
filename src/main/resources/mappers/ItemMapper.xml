@@ -25,7 +25,7 @@
     
     <insert id="insertarItem" parameterType="Item">
     insert into VI_ITEMS (id, nombre, descripcion, fechalanzamiento, tarifaxdia, formatorenta, genero, TIPOITEM_id)
-    values (#{id}, #{nombre}, #{descripcion}, #{fechaLanzamiento}, #{tarifaxDia}, #{formatoRenta}, #{genero}, #{tipo.ID})
+    values (#{id}, #{nombre}, #{descripcion}, #{fechaLanzamiento}, #{tarifaxDia}, #{formatoRenta}, #{genero}, #{tipo.id})
     </insert>
 
     

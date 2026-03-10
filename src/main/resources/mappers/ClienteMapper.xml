@@ -51,8 +51,8 @@
 <!--mapeo para la tabla ITEMRENTADO-->
 <resultMap type = "ItemRentado" id="ItemRentadoResult">
     <id property = "id" column = "ir_id"/>
-    <result property = "fechainiciorenta" column="fechainiciorenta" />
-    <result property = "fechafinrenta" column = "fechafinrenta" />
+    <result property = "fechainiciorenta" column="ir_fechainiciorenta" />
+    <result property = "fechafinrenta" column = "ir_fechafinrenta" />
 
     <association property="item" resultMap="ItemResult" columnPrefix="i_"/>
 </resultMap>
@@ -62,8 +62,8 @@
     <id property = "id" column = "i_id"/>
     <result property = "nombre" column="i_nombre"/>
     <result property = "descripcion" column="i_descripcion"/>
-    <result property = "fechalanzamiento" column = "fechalanzamiento"/>
-    <result property = "tarifaxdia" column = "tarifaxdia"/>
+    <result property = "fechalanzamiento" column = "i_fechalanzamiento"/>
+    <result property = "tarifaxdia" column = "i_tarifaxdia"/>
     <result property = "formatorenta" column= "formatorenta"/>
     <result property = "genero" column = "genero" />
 

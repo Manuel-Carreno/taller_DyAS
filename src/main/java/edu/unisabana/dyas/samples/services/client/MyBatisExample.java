@@ -90,7 +90,7 @@ public class MyBatisExample {
         sqlss.commit();
         
         Item itemInsert = im.consultarItem(newItem.getId());
-        System.out.println("Item guardado es:");
+        System.out.println("El item guardado es:");
         System.out.println(itemInsert);
         
         sqlss.close();

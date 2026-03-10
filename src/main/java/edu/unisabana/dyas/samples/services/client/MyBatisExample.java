@@ -92,6 +92,12 @@ public class MyBatisExample {
         Item itemInsert = im.consultarItem(newItem.getId());
         System.out.println("El item guardado es:");
         System.out.println(itemInsert);
+        System.out.println("-----------------");
+
+
+        //consultar clientes
+        ClienteMapper cm = sqlss.getMapper(ClienteMapper.class);
+        System.out.println(cm.consultarClientes());
         
         sqlss.close();
 
